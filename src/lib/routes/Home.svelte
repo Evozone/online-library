@@ -13,7 +13,12 @@
     onMount(() => {
         // If user is logged in, redirect to dashboard
         if ($loggedInUser !== null) {
-            navigate("/dashboard");
+            // If user is logged in and the path is a book, redirect to book
+            if (location.pathname.includes("/book/")) {
+                navigate(location.pathname);
+            } else {
+                navigate("/dashboard");
+            }
         }
     });
 </script>

@@ -30,46 +30,66 @@
     });
 </script>
 
-<div class="navbar" class:scrolled>
-    <div class="avatar">
-        <!-- If loggedInUser is present and the photoUrl is present, then show img else show placeholder -->
-        {#if $loggedInUser && $loggedInUser.picture}
-            <img src={$loggedInUser.picture} alt={$loggedInUser.name} />
-        {:else}
-            <span class="text-xl font-bold">
-                {#if $loggedInUser}
-                    {$loggedInUser.name.charAt(0)}
-                {/if}
-            </span>
-        {/if}
-    </div>
-    <!-- Brand -->
-    <h1 class="text-2xl font-bold text-content-base">WebMarks</h1>
-
+<nav class="navbar" class:scrolled>
+    <ul>
+        <div class="avatar">
+            <!-- If loggedInUser is present and the photoUrl is present, then show img else show placeholder -->
+            {#if $loggedInUser && $loggedInUser.picture}
+                <img src={$loggedInUser.picture} alt={$loggedInUser.name} />
+            {:else}
+                <span class="text-xl font-bold">
+                    {#if $loggedInUser}
+                        {$loggedInUser.name.charAt(0)}
+                    {/if}
+                </span>
+            {/if}
+        </div>
+        <!-- Divider -->
+        <div class="divider" />
+        <!-- Brand -->
+        <h3>Online Library</h3>
+    </ul>
     <!-- Logout Button -->
     <LogoutButton />
-</div>
+</nav>
 
 <style>
+    nav > ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
     .navbar {
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 2rem;
         background-color: black;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.2s ease-in-out;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .divider {
+        width: 1px;
+        height: 2rem;
+        background-color: white;
+        margin: 0 1rem;
     }
 
     .avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 3rem;
-        height: 3rem;
+        width: 2.5rem;
+        height: 2.5rem;
         border-radius: 50%;
         background-color: black;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
     }
 
     .avatar img {

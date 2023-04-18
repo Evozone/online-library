@@ -28,16 +28,13 @@
 <style>
     .logout-button {
         background-color: #f44336;
-        border-radius: 0.8rem;
+        border-radius: 10px;
         border: none;
         color: white;
-        padding: 15px 20px;
+        padding: 10px 20px;
         text-align: center;
         text-decoration: none;
-        display: flex;
-        align-items: center;
         font-size: 20px;
-        margin: 4px 2px;
         cursor: pointer;
     }
 

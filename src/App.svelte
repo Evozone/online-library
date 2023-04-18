@@ -28,7 +28,6 @@
             path !== "/dashboard" &&
             !path.startsWith("/book/")
         ) {
-            console.log("Redirecting to /");
             window.location.pathname = "/";
         }
     });

@@ -25,7 +25,7 @@
 
 <main>
     <!-- Page title -->
-    <h1>Book</h1>
+    <h1>Book {id}</h1>
 </main>
 
 <style>
