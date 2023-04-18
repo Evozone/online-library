@@ -2,7 +2,7 @@
     // Imports
     import { navigate } from "svelte-routing";
     import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    import { collection, addDoc } from "firebase/firestore";
+    import { doc, setDoc, getDoc } from "firebase/firestore";
     import { auth, db } from "../../firebase";
     import { loggedInUser, showLoading } from "../../stores";
     import jwt_decode from "jwt-decode";
@@ -44,13 +44,34 @@
     // This function creates a new user in the database
     const createUser = async (user) => {
         try {
-            await addDoc(collection(db, "users"), {
-                user_id: user.user_id,
-                email: user.email,
-                name: user.name,
-                picture: user.picture,
-                createdAt: new Date(),
-            });
+            // Check if user already exists
+            const docRef = doc(db, "users", user.user_id);
+            const docSnap = await getDoc(docRef);
+
+            // If user does not exist, create it
+            if (!docSnap.exists()) {
+                await setDoc(doc(db, "users", user.user_id), {
+                    user_id: user.user_id,
+                    email: user.email,
+                    name: user.name,
+                    picture: user.picture,
+                    createdAt: new Date(),
+                    lastLoggedIn: new Date(),
+                });
+            } else {
+                // If user already exists, update the lastLoggedIn field
+                await setDoc(
+                    doc(db, "users", user.user_id),
+                    {
+                        user_id: user.user_id,
+                        email: user.email,
+                        name: user.name,
+                        picture: user.picture,
+                        lastLoggedIn: new Date(),
+                    },
+                    { merge: true }
+                );
+            }
         } catch (error) {
             console.error("Error while creating user:", error);
         }
