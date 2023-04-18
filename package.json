@@ -1,0 +1,22 @@
+{
+  "name": "online-library",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "svelte": "^3.55.1",
+    "vite": "^4.2.0"
+  },
+  "dependencies": {
+    "@picocss/pico": "^1.5.9",
+    "firebase": "^9.19.1",
+    "jwt-decode": "^3.1.2",
+    "svelte-routing": "^1.6.0"
+  }
+}
