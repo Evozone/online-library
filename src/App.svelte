@@ -15,8 +15,11 @@
 
     onMount(() => {
         // Check if user is logged in
-        const token = window.localStorage.getItem("libraryToken");
-        loggedInUser.login(token);
+        // Check if token is present in local storage
+        const token = window.localStorage.getItem("libraryToken") || null;
+        if (token) {
+            loggedInUser.login(token);
+        }
 
         // Don't redirect to any page outside of /, /dashboard, /book/:id
         const path = window.location.pathname;
@@ -25,6 +28,7 @@
             path !== "/dashboard" &&
             !path.startsWith("/book/")
         ) {
+            console.log("Redirecting to /");
             window.location.pathname = "/";
         }
     });
