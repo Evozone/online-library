@@ -26,7 +26,7 @@
         if (
             path !== "/" &&
             path !== "/dashboard" &&
-            !path.startsWith("/book/")
+            path.split("/")[1] !== "book"
         ) {
             window.location.pathname = "/";
         }

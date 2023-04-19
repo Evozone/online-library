@@ -1,58 +1,39 @@
 <script>
     // Imports
     import { onMount } from "svelte";
-    import {
-        doc,
-        setDoc,
-        Timestamp,
-        collection,
-        query,
-        where,
-        getDocs,
-        getDoc,
-        updateDoc,
-    } from "firebase/firestore";
     import { navigate } from "svelte-routing";
     import { db } from "../../firebase";
+    import { collection, getDocs, query } from "firebase/firestore";
 
     // Stores
-    import { loggedInUser, showLoading } from "../../stores";
+    import { showLoading } from "../../stores";
 
+    // Components
     import Navbar from "../components/Navbar.svelte";
+    import UploadBookBtn from "../components/UploadBookBtn.svelte";
+    import BookCard from "../components/BookCard.svelte";
 
     export let id;
     export let location;
 
-    // Javascript
-    let file;
+    let bookList = [];
 
-    // Functions
-    async function uploadBook() {
-        showLoading.set(true);
+    // Fetch all books from Firestore
+    const getBooks = async () => {
+        $showLoading = true;
+        try {
+            const booksRef = await getDocs(query(collection(db, "books")));
+            const data = booksRef.docs.map((doc) => doc.data());
+            bookList = data;
+            $showLoading = false;
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-        // Get the file
-        const fileToUpload = file[0];
-
-        // Get the file extension
-        const fileExtension = fileToUpload.name.split(".").pop();
-
-        // Get the file name
-        const fileName = fileToUpload.name.split(".").slice(0, -1).join(".");
-
-        // Get the file size
-        const fileSize = fileToUpload.size;
-
-        // Get the file type
-        const fileType = fileToUpload.type;
-
-        // Get the file last modified date
-        const fileLastModifiedDate = fileToUpload.lastModifiedDate;
-
-        // Upload the file
-        // Post to firebase storage TODO
-        console.log(fileToUpload);
-        showLoading.set(false);
-    }
+    onMount(async () => {
+        await getBooks();
+    });
 </script>
 
 <!-- Navbar -->
@@ -62,17 +43,30 @@
     <!-- Page title -->
     <h1>Dashboard</h1>
 
-    <!-- Dummy button to go to Book1, Book2, Book3 -->
-    <button on:click={() => navigate("/book/1")}>Book 1</button>
-    <button on:click={() => navigate("/book/2")}>Book 2</button>
-    <button on:click={() => navigate("/book/3")}>Book 3</button>
+    <!-- Upload book button -->
+    <UploadBookBtn />
 
-    <!-- Upload PDF book -->
-    <form on:submit|preventDefault={uploadBook}>
-        <input type="file" bind:files={file} />
-        <button type="submit">Upload</button>
-    </form>
+    <!-- List of books in a card -->
+    <div class="grid books">
+        {#await bookList}
+            <p>Loading...</p>
+        {:then books}
+            {#if books.length === 0}
+                <p>No books found</p>
+            {:else}
+                {#each books as book}
+                    <BookCard {book} />
+                {/each}
+            {/if}
+        {/await}
+    </div>
 </main>
 
 <style>
+    .books {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 1rem;
+        margin: 1rem 0;
+    }
 </style>

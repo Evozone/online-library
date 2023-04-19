@@ -10,13 +10,11 @@
     // Exports
     export let location;
 
-    onMount(() => {
-        // If user is logged in, redirect to dashboard
-        if ($loggedInUser !== null) {
-            // If user is logged in and the path is a book, redirect to book
-            if (location.pathname.includes("/book/")) {
-                navigate(location.pathname);
-            } else {
+    onMount(async () => {
+        // If user is logged in, wait for path to change
+        if ($loggedInUser) {
+            const path = window.location.pathname;
+            if (path === "/") {
                 navigate("/dashboard");
             }
         }

@@ -8,17 +8,15 @@
     export let component;
     export let id;
 
-    $: isAuthenticated = $loggedInUser !== null;
-
     onMount(() => {
         // If user is not logged in, redirect to home page
-        if (!isAuthenticated) {
+        if (!$loggedInUser) {
             navigate("/");
         }
     });
 </script>
 
-{#if isAuthenticated}
+{#if $loggedInUser}
     <svelte:component this={component} {id} location={null} />
 {:else}
     <svelte:component this={Home} location="/" />

@@ -46,8 +46,12 @@
         </div>
         <!-- Divider -->
         <div class="divider" />
-        <!-- Brand -->
-        <h3>Online Library</h3>
+        <!-- Brand clickable -->
+        <li>
+            <a href="/dashboard" class="text-white font-bold text-xl">
+                <h3>Online Library</h3></a
+            >
+        </li>
     </ul>
     <!-- Logout Button -->
     <LogoutButton />
