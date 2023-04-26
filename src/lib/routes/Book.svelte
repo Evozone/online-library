@@ -48,8 +48,24 @@
     <p>{bookinfo.description}</p>
     <p>{bookinfo.tags}</p>
     <p>{bookinfo.size}</p>
+
+    <!-- Button to open link in new tab -->
+    <button
+        on:click={() => {
+            window.open(bookinfo.url, "_blank");
+        }}
+    >
+        Open in new tab
+    </button>
 </main>
 
 <style>
-    /* your styles go here */
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    
 </style>

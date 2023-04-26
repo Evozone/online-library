@@ -1,7 +1,7 @@
 <script>
     // Imports
     import { db, storage } from "../../firebase";
-    import { ref, uploadBytes } from "firebase/storage";
+    import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
     import { setDoc, doc } from "firebase/firestore";
 
     // Stores
@@ -47,10 +47,11 @@
             );
 
             const uploadTask = await uploadBytes(storageRef, book.file).then(
-                (snapshot) => {
+                async(snapshot) => {
                     const path = snapshot.metadata.fullPath;
                     const size = snapshot.metadata.size;
-                    createBook(path, size);
+                    const url = await getDownloadURL(snapshot.ref);
+                    createBook(path, size, url);
                 }
             );
 
@@ -66,7 +67,7 @@
     };
 
     // This function creates a new book in the database
-    const createBook = async (filePath, size) => {
+    const createBook = async (filePath, size, url) => {
         try {
             // Create the book in the database
             await setDoc(doc(db, "books", filePath.split("/")[1]), {
@@ -77,6 +78,7 @@
                 tags: bookDetails.tags,
                 filePath,
                 size,
+                url
             });
         } catch (error) {
             console.error("Error while creating book:", error);
