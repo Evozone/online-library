@@ -47,7 +47,7 @@
             );
 
             const uploadTask = await uploadBytes(storageRef, book.file).then(
-                async(snapshot) => {
+                async (snapshot) => {
                     const path = snapshot.metadata.fullPath;
                     const size = snapshot.metadata.size;
                     const url = await getDownloadURL(snapshot.ref);
@@ -78,7 +78,7 @@
                 tags: bookDetails.tags,
                 filePath,
                 size,
-                url
+                url,
             });
         } catch (error) {
             console.error("Error while creating book:", error);
@@ -101,21 +101,25 @@
     };
 </script>
 
-<button data-target="upload-book-modal" on:click={toggleModal}>
+<button
+    class="upload-book-btn contrast"
+    data-target="upload-book-modal"
+    on:click={toggleModal}
+>
     Upload a Book of your own!
 </button>
 
-<dialog id="upload-book-modal" class="upload-book-modal">
-    <article class="modal-card">
+<dialog id="upload-book-modal">
+    <article>
         <header>
-            <button
-                aria-label="Close"
+            <!-- svelte-ignore a11y-missing-content -->
+            <a
                 class="close"
+                href="#close"
                 data-target="upload-book-modal"
                 on:click={toggleModal}
-                on:keydown={toggleModal}>❌</button
-            >
-            <h2>Upload a Book</h2>
+            />
+            Upload a Book
         </header>
         <form on:submit|preventDefault={uploadBook}>
             <div class="grid">
@@ -131,100 +135,54 @@
                     placeholder="Author name"
                     required
                 />
-                <textarea
-                    bind:value={bookDetails.description}
-                    placeholder="Enter a description of the book"
-                    required
-                />
-                <input
-                    type="text"
-                    on:input={updateLiveTags}
-                    placeholder="Enter tags for the book"
-                    required
-                />
-                <div class="tags">
-                    <h3>Tags</h3>
-                    {#if bookDetails.tags.length > 0}
-                        {#each bookDetails.tags as tag}
-                            <span>{tag}</span>
-                        {/each}
-                    {/if}
-                </div>
-                <input type="file" bind:files={file} required />
             </div>
-            <button type="submit">Upload</button>
+            <textarea
+                bind:value={bookDetails.description}
+                placeholder="Enter a description of the book"
+                required
+            />
+            <input
+                type="text"
+                on:input={updateLiveTags}
+                placeholder="Enter tags for the book"
+                required
+            />
+            <div class="tags">
+                <h6>Tags</h6>
+                {#if bookDetails.tags.length > 0}
+                    {#each bookDetails.tags as tag}
+                        <kbd>{tag}</kbd>
+                        &nbsp;
+                    {/each}
+                {/if}
+            </div>
+            <label for="file"
+                >Choose the book PDF
+                <input
+                    name="file"
+                    id="file"
+                    type="file"
+                    bind:files={file}
+                    required
+                />
+            </label>
+            <input type="submit" value="Upload" />
         </form>
     </article>
 </dialog>
 
 <style>
-    .close {
-        cursor: pointer;
-        float: right;
-        background-color: transparent;
-        border: none;
-    }
-
-    .upload-book-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        border: none;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 100;
-    }
-
-    .upload-book-modal[open] {
-        display: grid;
-        place-items: center;
-    }
-
-    .modal-card {
+    .upload-book-btn {
         width: fit-content;
-        padding: 1rem;
-        border-radius: 0.5rem;
-
-        background-color: lightseagreen;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-
-    .grid input,
-    .grid textarea {
-        padding: 0.5rem;
+        padding: 0.5rem 1rem;
         border-radius: 0.5rem;
         border: none;
-        background-color: white;
-        color: #000;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0;
     }
 
     .tags {
-        grid-column: 1 / 3;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .tags h3 {
-        margin-right: 0.5rem;
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-    .tags span {
-        padding: 0 0.5rem;
-        border-radius: 0.5rem;
-        background-color: white;
-        color: #000;
-    }
-
-    .grid input[type="file"] {
-        grid-column: 1 / 3;
+        margin-bottom: 1rem;
     }
 </style>

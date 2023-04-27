@@ -27,18 +27,12 @@
 
 <style>
     .logout-button {
-        background-color: #f44336;
-        border-radius: 10px;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 20px;
+        margin: 0;
         cursor: pointer;
-    }
-
-    .logout-button:hover {
-        background-color: #fa695f;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        position: relative;
+        transition: all 0.2s ease-in-out;
     }
 </style>

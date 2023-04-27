@@ -39,7 +39,7 @@
     });
 </script>
 
-<Navbar />
+<Navbar bookName={bookinfo.name} />
 
 <main>
     <!-- Properties: name, author, description, tags, size -->
@@ -67,5 +67,4 @@
         justify-content: center;
         height: 100%;
     }
-    
 </style>

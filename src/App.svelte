@@ -1,6 +1,8 @@
 <script>
+    // Imports
     import { Router, Route } from "svelte-routing";
     import { onMount } from "svelte";
+    import "@picocss/pico";
     import ProtectedRoute from "./lib/ProtectedRoute.svelte";
     // Routes
     import Book from "./lib/routes/Book.svelte";
@@ -51,6 +53,8 @@
 
 <style>
     :global(body) {
+        --primary: #039be5;
+        --secondary: #00acc1;
         margin: 0;
         padding: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",

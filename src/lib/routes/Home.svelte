@@ -23,14 +23,18 @@
 
 <main>
     <div class="grid">
-        <h1>Welcome to Online Library</h1>
-        <p>
-            This is a simple Svelte app that uses Firebase for authentication
-            and database.
-        </p>
-        <!-- This button is important -->
-        <GoogleLoginButton />
-        <!-- This button is important -->
+        <img src="/logo.svg" alt="Main logo" width="400" />
+        <div>
+            <h1>Anil's Online Library</h1>
+            <hgroup>
+                <h3>
+                    Online Library is a free and open source library for
+                    everyone, you can read books online for free.
+                </h3>
+                <h5>Sign in to continue</h5>
+            </hgroup>
+            <GoogleLoginButton />
+        </div>
     </div>
 </main>
 
@@ -39,12 +43,18 @@
         height: 100vh;
         width: 100vw;
         margin: 0;
-        padding: 0;
-        background-color: #1a202c;
-        background-repeat: repeat;
-        background-size: cover;
+        padding: 5rem;
+        background: linear-gradient(
+            113deg,
+            rgba(2, 0, 36, 0.5) 0%,
+            rgba(9, 9, 121, 0.5) 35%,
+            rgba(0, 212, 255, 0.5) 100%
+        );
+    }
 
-        display: grid;
-        place-items: center;
+    hgroup {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 </style>

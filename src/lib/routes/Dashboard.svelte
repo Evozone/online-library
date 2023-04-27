@@ -1,7 +1,6 @@
 <script>
     // Imports
     import { onMount } from "svelte";
-    import { navigate } from "svelte-routing";
     import { db } from "../../firebase";
     import { collection, getDocs, query } from "firebase/firestore";
 
@@ -41,13 +40,16 @@
 
 <main>
     <!-- Page title -->
-    <h1>Dashboard</h1>
-
-    <!-- Upload book button -->
-    <UploadBookBtn />
+    <hgroup>
+        <h1 class="hero-title">List of Books</h1>
+        <!-- Upload book button -->
+        <div class="upload-btn-container">
+            <UploadBookBtn />
+        </div>
+    </hgroup>
 
     <!-- List of books in a card -->
-    <div class="grid books">
+    <article class="books">
         {#await bookList}
             <p>Loading...</p>
         {:then books}
@@ -59,15 +61,23 @@
                 {/each}
             {/if}
         {/await}
-    </div>
+    </article>
 </main>
 
 <style>
-    
     .books {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        grid-gap: 1rem;
-        margin: 1rem 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .upload-btn-container {
+        display: flex;
+        justify-content: flex-end;
     }
 </style>

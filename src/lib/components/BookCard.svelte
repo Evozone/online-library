@@ -4,51 +4,81 @@
 
     // Exports
     export let book;
+
+    // Javascript
+    let theme = localStorage.getItem("theme");
+    // Switches the theme if the theme is dark
+    if (theme === "dark") {
+        theme = "light";
+    } else {
+        theme = "dark";
+    }
 </script>
 
-<article
-    class="book-card"
-    on:click={() => {
-        navigate(`/book/${book.filePath.split("/")[1].split(".")[0]}`);
-    }}
-    on:keydown={(e) => {
-        if (e.key === "Enter") {
-            navigate(`/book/${book.filePath.split("/")[1].split(".")[0]}`);
-        }
-    }}
->
-    <div class="headings">
-        <h2>Name: {book.name}</h2>
-        <h3>Author: {book.author}</h3>
-        <h6>
-            Size: {#if book.size > 1000}
-                {(book.size / 1000000).toFixed(2)} MB
-            {/if}
-            {#if book.size < 1000}
-                {book.size} KB
-            {/if}
-        </h6>
-    </div>
-    <div class="description">
+<details>
+    <!-- svelte-ignore a11y-no-redundant-roles -->
+    <summary>
+        <hgroup>
+            <h2>{book.name}</h2>
+            &nbsp; by &nbsp;
+            <h5>{book.author}</h5>
+        </hgroup>
+    </summary>
+    <article class="book-card">
         <p>{book.description}</p>
-    </div>
-    <div>
-        <span>Tags: </span>
-        {#each book.tags as tag}
-            <span class="tag">{tag}</span>
-        {/each}
-    </div>
-</article>
+        <footer>
+            <div>
+                <span>Tags: </span>
+                {#each book.tags as tag}
+                    <kbd>{tag}</kbd>
+                {/each}
+            </div>
+            <!-- Button to open link in new tab -->
+            <button
+                on:click={() => {
+                    window.open(book.url, "_blank");
+                }}
+            >
+                Read Online
+            </button>
+        </footer>
+    </article>
+</details>
 
 <style>
-    .book-card {
-        background-color: lightsteelblue;
-        border-radius: 5px;
-        padding: 1rem;
+    article {
+        border: 1px solid var(--primary);
+    }
+    summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    .book-card:hover {
-        cursor: pointer;
-        background-color: lightblue;
+    hgroup {
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    hgroup h2,
+    h5 {
+        display: inline;
+    }
+
+    kbd {
+        margin-right: 0.5rem;
+    }
+
+    footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    button {
+        margin-bottom: 0;
+        width: fit-content;
+        font-size: 0.8rem;
+        padding: 0.5rem;
     }
 </style>
