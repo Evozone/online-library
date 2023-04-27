@@ -7,6 +7,9 @@
     // Stores
     import { showLoading } from "../../stores";
 
+    // Props
+    export let getBooks;
+
     // Javascript
     let file;
     let bookDetails = {
@@ -61,6 +64,9 @@
             toggleModal({
                 target: { dataset: { target: "upload-book-modal" } },
             });
+
+            // Get all books again
+            getBooks();
         } catch (error) {
             console.error("Error while uploading book:", error);
         }

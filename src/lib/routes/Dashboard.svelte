@@ -95,7 +95,7 @@
                 placeholder="Search"
                 bind:value={searchTerms}
             />
-            <UploadBookBtn />
+            <UploadBookBtn {getBooks} />
         </div>
     </div>
 
