@@ -50,6 +50,7 @@
             rgba(9, 9, 121, 0.5) 35%,
             rgba(0, 212, 255, 0.5) 100%
         );
+        color: aliceblue;
     }
 
     hgroup {
