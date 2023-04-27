@@ -102,7 +102,7 @@
 </script>
 
 <button
-    class="upload-book-btn contrast"
+    class="upload-book-btn secondary"
     data-target="upload-book-modal"
     on:click={toggleModal}
 >

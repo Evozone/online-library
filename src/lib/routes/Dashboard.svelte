@@ -16,6 +16,7 @@
     export let location;
 
     let bookList = [];
+    let searchTerms = "";
 
     // Fetch all books from Firestore
     const getBooks = async () => {
@@ -30,6 +31,14 @@
         }
     };
 
+    const updateSearchTerms = (event) => {
+        // Set timeout
+        setTimeout(() => {
+            searchTerms = event.target.value;
+            console.log(searchTerms);
+        }, 1000);
+    };
+
     onMount(async () => {
         await getBooks();
     });
@@ -39,14 +48,14 @@
 <Navbar />
 
 <main>
-    <!-- Page title -->
-    <hgroup>
+    <!-- Upload book button -->
+    <div class="container-fluid">
         <h1 class="hero-title">List of Books</h1>
-        <!-- Upload book button -->
-        <div class="upload-btn-container">
+        <div class="search-bar">
+            <input class="search" type="search" id="search" name="search" placeholder="Search" />
             <UploadBookBtn />
         </div>
-    </hgroup>
+    </div>
 
     <!-- List of books in a card -->
     <article class="books">
@@ -76,8 +85,22 @@
         flex-direction: column;
     }
 
-    .upload-btn-container {
+    .container-fluid {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .search {
+        background-color: white;
+        padding: 0.5rem;
+        height: 2rem;
+        margin-bottom: 0;
+        margin-right: 1rem;
     }
 </style>

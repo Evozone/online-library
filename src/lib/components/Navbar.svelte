@@ -56,14 +56,8 @@
         </li>
     </ul>
     <ul>
-        <!-- Brand clickable -->
         <li>
-            <a on:click={navigateToHome} href="/dashboard">
-                <strong> Online Library </strong>
-            </a>
-            {#if bookName}
-                <span> / {bookName}</span>
-            {/if}
+            <strong> Online Library </strong>
         </li>
     </ul>
     <ul>
@@ -107,5 +101,9 @@
     .scrolled {
         background-color: rgba(0, 0, 0, 0.8);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    strong {
+        color: var(--primary);
     }
 </style>
