@@ -78,9 +78,11 @@
     };
 </script>
 
-<button on:click={loginWithGoogle} class="google-button"
-    >Login with Google</button
->
+<button on:click={loginWithGoogle} class="google-button">
+    <!-- svelte-ignore a11y-missing-attribute -->
+    <img src="src\assets\google.png" />
+    Login with Google
+</button>
 
 <style>
     .google-button {

@@ -135,6 +135,7 @@
     .books {
         display: flex;
         flex-direction: column;
+        padding: 3rem;
     }
 
     main {

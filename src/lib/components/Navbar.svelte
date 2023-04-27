@@ -98,6 +98,12 @@
         margin-right: 1rem;
     }
 
+    .avatar img {
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+    }
+
     .scrolled {
         background-color: rgba(0, 0, 0, 0.8);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
